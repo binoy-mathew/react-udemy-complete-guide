@@ -30,7 +30,8 @@ class App extends Component {
     };
 
     deletePersonHandler = (index) => {
-        const persons = this.state.persons;
+        const persons = this.state.persons.slice();
+        //const persons = [...this.state.persons];  you can also use spread operator to create a new list.
         persons.splice(index, 1);
         this.setState({persons: persons});
     };
