@@ -29,17 +29,32 @@ class App extends Component {
             this.setState({isPersonNameChanged: true});
     };
 
+    deletePersonHandler = (index) => {
+        const persons = this.state.persons;
+        persons.splice(index, 1);
+        this.setState({persons: persons});
+    };
+
+    /*
+    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>Hobbies: Music, Arts</Person>
+    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+    */
+
     render() {
            let person = null;
            if (this.state.isPersonNameChanged) {
             person = (
                 <div className="App">
-                    <h1>Hi!! I am a React App.
+                    <h1>Click on the button below to see magic!
                     </h1>
                     <button onClick={this.switchNameHandler}>Switch Name Now</button>
-                    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-                    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>Hobbies: Music, Arts</Person>
-                    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
+                    {
+                        this.state.persons.map((person, index) => {
+                            return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)} />
+                        })
+                    }
+
                 </div>
             );
         }
