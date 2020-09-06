@@ -5,9 +5,9 @@ import Person from './Person/Person';
 class App extends Component {
     state = {
         persons : [
-            {name: "Brian", age: 37},
-            {name: "Julia", age: 30},
-            {name: "Stephan", age: 35}
+            {id: '01', name: "Brian", age: 37},
+            {id: '02', name: "Julia", age: 30},
+            {id: '03', name: "Stephan", age: 35}
         ],
         isPersonNameChanged: false
     }
@@ -25,6 +25,7 @@ class App extends Component {
         );
     }
 
+
     switchNameOnConditionHandler = () => {
             this.setState({isPersonNameChanged: true});
     };
@@ -36,11 +37,21 @@ class App extends Component {
         this.setState({persons: persons});
     };
 
-    /*
-    <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
-    <Person name={this.state.persons[1].name} age={this.state.persons[1].age}>Hobbies: Music, Arts</Person>
-    <Person name={this.state.persons[2].name} age={this.state.persons[2].age}/>
-    */
+
+    nameChangedHandler = (event, personId) => {
+        const newName = event.target.value;
+
+        const personIndex = this.state.persons.findIndex(p => p.id === personId);
+        const newPerson = {...this.state.persons[personIndex]};
+        newPerson.name = newName;
+
+        const persons = [...this.state.persons];
+        persons[personIndex] = newPerson;
+
+        this.setState({persons: persons});
+    };
+
+
 
     render() {
            let person = null;
@@ -52,7 +63,7 @@ class App extends Component {
                     <button onClick={this.switchNameHandler}>Switch Name Now</button>
                     {
                         this.state.persons.map((person, index) => {
-                            return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)} />
+                            return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)} key={person.id} changed={(event) => this.nameChangedHandler(event, person.id)} />
                         })
                     }
 
