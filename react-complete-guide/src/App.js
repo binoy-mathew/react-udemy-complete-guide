@@ -54,25 +54,34 @@ class App extends Component {
 
 
     render() {
-           let person = null;
-           if (this.state.isPersonNameChanged) {
-            person = (
-                <div className="App">
-                    <h1>Click on the button below to see magic!
-                    </h1>
-                    <button onClick={this.switchNameHandler}>Switch Name Now</button>
-                    {
-                        this.state.persons.map((person, index) => {
-                            return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)} key={person.id} changed={(event) => this.nameChangedHandler(event, person.id)} />
-                        })
-                    }
 
-                </div>
-            );
+        const style = {
+            backgroundColor: 'green',
+            color: 'white',
+            border: '1px solid blue',
+            padding: '8px',
+            cursor: 'pointer'
+        };
+
+        let person = null;
+        if (this.state.isPersonNameChanged) {
+            person = (<div className="App">
+                <h1>Click on the button below to see magic!
+                </h1>
+                <button onClick={this.switchNameHandler}>Switch Name Now</button>
+                {
+                    this.state.persons.map((person, index) => {
+                        return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)} key={person.id} changed={(event) => this.nameChangedHandler(event, person.id)}/>
+                    })
+                }
+
+            </div>);
+
+            style.backgroundColor = 'maroon';
         }
 
         return (
-            <div className="App">
+            <div className="App" style={style}>
                 <h1>Hi!! I am a React App.
                 </h1>
                 <button onClick={this.switchNameOnConditionHandler}>Display Switch Name Button</button>
