@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium, { StyleRoot } from 'radium';
+
 
 class App extends Component {
     state = {
@@ -83,24 +83,18 @@ class App extends Component {
             </div>);
 
             style.backgroundColor = 'maroon';
-            style[':hover'] = {
-                backgroundColor: 'lightsalmon',
-                color: 'white'
-            };
         }
 
         return (
-            <StyleRoot>
             <div className="App" style={style}>
                 <h1>Hi!! I am a React App.
                 </h1>
                 <button onClick={this.switchNameOnConditionHandler}>Display Switch Name Button</button>
                 {person}
             </div>
-        </StyleRoot>
         );
 
     }
 }
 
-export default Radium(App);
+export default App;
