@@ -86,7 +86,7 @@ class App extends Component {
 
         return (
             <div className="App" style={style}>
-                <Cockpit clicked={this.switchNameOnConditionHandler} person={person}/>
+                <Cockpit appTitle={this.props.appTitle} clicked={this.switchNameOnConditionHandler} person={person}/>
 
             </div>
         );
