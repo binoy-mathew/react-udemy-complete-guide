@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
-
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
     state = {
@@ -70,32 +69,25 @@ class App extends Component {
 
         let person = null;
         if (this.state.isPersonNameChanged) {
-            person = (<div className="App">
-                <h1>Click on the button below to see magic!
-                </h1>
-                <button onClick={this.switchNameHandler}>Switch Name Now</button>
-                {
-                    this.state.persons.map((person, index) => {
-                        return <ErrorBoundary key={person.id}>
-                                <Person name={person.name}
-                                    age={person.age} click={() => this.deletePersonHandler(index)}
-                                     changed={(event) => this.nameChangedHandler(event, person.id)}
-                                />
-                            </ErrorBoundary>
-                    })
-                }
-
-            </div>);
+            person = (
+                <div className="App">
+                    <h1>Click on the button below to see magic!
+                    </h1>
+                    <button onClick={this.switchNameHandler}>Switch Name Now</button>
+                    <Persons persons = {this.state.persons}
+                            clicked = {this.deletePersonHandler}
+                            changed = {this.nameChangedHandler}
+                    />
+                </div>
+            );
 
             style.backgroundColor = 'maroon';
         }
 
         return (
             <div className="App" style={style}>
-                <h1>Hi!! I am a React App.
-                </h1>
-                <button onClick={this.switchNameOnConditionHandler}>Display Switch Name Button</button>
-                {person}
+                <Cockpit clicked={this.switchNameOnConditionHandler} person={person}/>
+
             </div>
         );
 
@@ -103,3 +95,12 @@ class App extends Component {
 }
 
 export default App;
+
+
+/*
+dfdf
+<h1>Hi!! I am a React App.
+</h1>
+<button onClick={this.switchNameOnConditionHandler}>Display Switch Name Button</button>
+{person}
+*/
