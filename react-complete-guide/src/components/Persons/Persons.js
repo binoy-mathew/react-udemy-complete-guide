@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Person from './Person/Person';
 
@@ -10,15 +10,17 @@ So the code would be like -
         return <Person name={person.name} key=... />
     });
 */
-const persons = (props) => {
-    console.log('[Persons.js] rendering...');
-    return props.persons.map((person, index) => {
-        return <Person name={person.name}
-                    key = {person.id}
-                    age={person.age} click={() => props.clicked(index)}
-                     changed={(event) => props.changed(event, person.id)}
-                />
-    });
+class Persons extends Component {
+    render() {
+        console.log('[Persons.js] rendering...');
+        return this.props.persons.map((person, index) => {
+            return <Person name={person.name}
+                        key = {person.id}
+                        age={person.age} click={() => this.props.clicked(index)}
+                         changed={(event) => this.props.changed(event, person.id)}
+                    />
+        });
+    }
 }
 
-export default persons;
+export default Persons;

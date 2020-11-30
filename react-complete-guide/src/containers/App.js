@@ -32,9 +32,9 @@ class App extends Component {
         //DO NOT DO THIS -- this.state.persons[0].name = 'Bailey';
         this.setState({
                 persons : [
-                    {name: "Brian2", age: 38},
-                    {name: "Julia2", age: 35},
-                    {name: "Stephan", age: 35}
+                    {id: '01', name: "Brian2", age: 38},
+                    {id: '02', name: "Julia2", age: 35},
+                    {id: '03', name: "Stephan", age: 35}
                 ]
             }
         );
