@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import WithClass from '../hoc/WithClass';
 
 class App extends Component {
     constructor(props) {
@@ -109,10 +110,11 @@ class App extends Component {
         }
 
         return (
-            <div className="App" style={style}>
+            //<div className="App" style={style}>
+            <WithClass myClasses="App">
                 <Cockpit appTitle={this.props.appTitle} clicked={this.switchNameOnConditionHandler} person={person}/>
-
-            </div>
+            </WithClass>
+            //</div>
         );
 
     }
