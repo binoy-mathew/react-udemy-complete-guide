@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import WithClass from '../hoc/WithClass';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/aux';
 
 class App extends Component {
     constructor(props) {
@@ -111,16 +112,16 @@ class App extends Component {
 
         return (
             //<div className="App" style={style}>
-            <WithClass myClasses="App">
+            <Aux myClasses="App">
                 <Cockpit appTitle={this.props.appTitle} clicked={this.switchNameOnConditionHandler} person={person}/>
-            </WithClass>
+            </Aux>
             //</div>
         );
 
     }
 }
 
-export default App;
+export default withClass(App, 'App');
 
 
 /*
