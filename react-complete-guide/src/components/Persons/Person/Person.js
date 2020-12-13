@@ -8,6 +8,8 @@ import './Person.css';
 
 class Person extends Component {
 
+    static contextType = AuthContext;
+
     constructor(props) {
         super(props)
         this.inputElRef = React.createRef();
@@ -16,6 +18,7 @@ class Person extends Component {
     componentDidMount() {
         //this.inputElRef.focus();
         this.inputElRef.current.focus();
+        console.log(`contextType value ${this.context.authenticated}`);
     }
 
     render() {
@@ -23,10 +26,7 @@ class Person extends Component {
         return (
             // <div className="Person">
             <Aux>
-                <AuthContext.Consumer>
-                    {
-                        (context) => {return context.authenticated ? 'Authenticated!' : 'Please log in.'}}
-                </AuthContext.Consumer>
+                    {this.context.authenticated ? 'Authenticated!' : 'Please log in.'}
 
                 <p onClick={this.props.click}>I'm {this.props.name} and I am {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
