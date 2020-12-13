@@ -4,6 +4,7 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
 import Aux from '../hoc/aux';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
     constructor(props) {
@@ -35,7 +36,8 @@ class App extends Component {
             {id: '02', name: "Julia", age: 30},
             {id: '03', name: "Stephan", age: 35}
         ],
-        isPersonNameChanged: false
+        isPersonNameChanged: false,
+        authenticated: false
     }
 
     switchNameHandler = () => {
@@ -51,6 +53,10 @@ class App extends Component {
         );
     }
 
+    loginHandler = () => {
+        console.log('setting authenticated to true');
+        this.setState({authenticated : true});
+    }
 
     switchNameOnConditionHandler = () => {
             this.setState({isPersonNameChanged: true});
@@ -76,7 +82,6 @@ class App extends Component {
 
         this.setState({persons: persons});
     };
-
 
 
     render() {
@@ -113,7 +118,13 @@ class App extends Component {
         return (
             //<div className="App" style={style}>
             <Aux myClasses="App">
-                <Cockpit appTitle={this.props.appTitle} clicked={this.switchNameOnConditionHandler} person={person}/>
+                <AuthContext.Provider value={{authenticated: this.state.authenticated, login: this.loginHandler}}>
+                    <Cockpit
+                        appTitle={this.props.appTitle}
+                        clicked={this.switchNameOnConditionHandler}
+                        person={person}
+                    />
+                </AuthContext.Provider>
             </Aux>
             //</div>
         );
