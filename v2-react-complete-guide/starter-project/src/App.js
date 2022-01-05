@@ -27,7 +27,7 @@ function App() {
   let expenseItems = (
     expenses.map(e => {
       console.log('In App ', e.title, e.amount, e.date);
-      return <ExpenseItem title={e.title} amount={e.amount} date={e.date}/>
+      return <ExpenseItem key={e.id} title={e.title} amount={e.amount} date={e.date}/>
     })
   );
 
