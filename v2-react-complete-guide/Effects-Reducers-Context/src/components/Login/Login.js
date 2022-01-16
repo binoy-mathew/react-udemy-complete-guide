@@ -40,10 +40,14 @@ const Login = (props) => {
 
 	const [passwordState, dispatchPassword] = useReducer(passwordReducer, { value: '', isValid: null } );
 
+	//Read the isValid and store into respective local variables
+	const { isValid: emailIsValid } = emailState;
+	const { isValid: passwordIsValid } = passwordState;
+
     useEffect(() => {
     	const identifier = setTimeout(() => {
     		console.log('Checking Form validity...');
-    		setFormIsValid(emailState.value.includes('@') && passwordState.value.trim().length > 6);
+    		setFormIsValid(emailIsValid && passwordIsValid);
     	}, 500);
 
     	return () => {
@@ -51,7 +55,7 @@ const Login = (props) => {
     		clearTimeout(identifier);
     	};
 
-    }, [emailState, passwordState]);
+    }, [emailIsValid, passwordIsValid]);
 
     const emailChangeHandler = (event) => {
         //setEnteredEmail(event.target.value);
