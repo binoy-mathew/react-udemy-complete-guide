@@ -14,7 +14,8 @@ function App() {
     If the array is left as empty, it will run only the first time that the component is rendered.
     */
     useEffect(() => {
-        const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+        const storedUserLoggedInInformation =
+            localStorage.getItem('isLoggedIn');
 
         if (storedUserLoggedInInformation === '1') {
             setIsLoggedIn(true);
@@ -34,15 +35,15 @@ function App() {
     };
 
     return (
-        <React.Fragment>
-            <AuthContext.Provider>
-              <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
-              <main>
-                  {!isLoggedIn && <Login onLogin={loginHandler} />}
-                  {isLoggedIn && <Home onLogout={logoutHandler} />}
-              </main>
-            </AuthContext.Provider>
-        </React.Fragment>
+        <AuthContext.Provider value={{
+          isLoggedIn: isLoggedIn
+      }}>
+            <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+            <main>
+                {!isLoggedIn && <Login onLogin={loginHandler} />}
+                {isLoggedIn && <Home onLogout={logoutHandler} />}
+            </main>
+        </AuthContext.Provider>
     );
 }
 
