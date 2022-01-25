@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react';
+import React, { useState, useEffect, useReducer, useContext, useRef } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
@@ -105,15 +105,27 @@ const Login = (props) => {
         });
     };
 
+    const emailInputRef = useRef();
+    const passwordInputRef = useRef();
+
     const submitHandler = (event) => {
         event.preventDefault();
-        authCtx.onLogin(emailState.value, passwordState.value);
+        if (formIsValid) {
+            authCtx.onLogin(emailState.value, passwordState.value);
+        } else if (!emailIsValid) {
+            //This is where we need to focus on email input field
+            emailInputRef.current.focus();
+        } else {
+            //This is where we need to focus on password input field
+            passwordInputRef.current.focus();
+        }
     };
 
     return (
         <Card className={classes.login}>
             <form onSubmit={submitHandler}>
                 <Input
+                    ref={emailInputRef}
                     isValid={emailState.isValid}
                     id="email"
                     label="E-Mail"
@@ -123,6 +135,7 @@ const Login = (props) => {
                     onBlur={validateEmailHandler}
                 />
                 <Input
+                    ref={passwordInputRef}
                     isValid={passwordState.isValid}
                     id="password"
                     label="Password"
@@ -167,7 +180,6 @@ const Login = (props) => {
                     <Button
                         type="submit"
                         className={classes.btn}
-                        disabled={!formIsValid}
                     >
                         Login
                     </Button>
