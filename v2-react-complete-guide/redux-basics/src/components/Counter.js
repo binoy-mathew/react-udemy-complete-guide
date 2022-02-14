@@ -1,13 +1,14 @@
 import classes from './Counter.module.css';
 import { useSelector, useDispatch, connect } from 'react-redux';
+import { counterActions } from '../store/index';
 import { Component } from 'react';
 
-/*
 const Counter = () => {
   const toggleCounterHandler = () => {};
   const dispatch = useDispatch();
   const counter = useSelector(state => state.counter);
 
+  /*
   const incrementHandler = () => {
     dispatch({
       type: 'increment'
@@ -19,8 +20,15 @@ const Counter = () => {
       type: 'decrement'
     });
   };
+  */
 
-
+  const incrementHandler = () => {
+    dispatch(counterActions.increment(3));
+  };
+  
+  const decrementHandler = () => {
+    dispatch(counterActions.decrement(2));
+  };
 
   return (
     <main className={classes.counter}>
@@ -34,9 +42,8 @@ const Counter = () => {
     </main>
   );
 };
-*/
 
-
+/*
 class Counter extends Component {
   incrementHandler(by) {
     console.log('increment by ', by);
@@ -92,5 +99,6 @@ const mapDispatchToProps = (dispatch) => {
 //connect takes 2 arguments, both functions.
 //this will also set up a subscription to the store.
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
+*/
 
-
+export default Counter;
