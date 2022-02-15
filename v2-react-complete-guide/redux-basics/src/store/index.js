@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const initialState = { counter: 0, showCounter: 0 };
+const initialCounterState = { counter: 0, showCounter: 0 };
 
 //With createSlice, we are creating a 'slice' of our global state.
 //CreateSlice wants an object as argument.
@@ -14,7 +14,7 @@ const initialState = { counter: 0, showCounter: 0 };
 //It may appear below that we are directly mutating the state, but behind the scenes, Redux Toolkit will take care of creating a copy of the object and setting that into the state.
 const counterSlice = createSlice({
   name: 'counter',
-  initialState,
+  initialState: initialCounterState,
   reducers: {
     increment(state, action) {
       state.counter += action.payload;
@@ -28,24 +28,25 @@ const counterSlice = createSlice({
   },
 });
 
-//==============Old reducer is no longer needed since we are defining the reducers in the createSlice() above.
-// const counterReducer = (state = { counter: 0}, action) => {
-//     console.log('in store by value is ', action.by);
-//     if (action.type === 'increment') {
-//         return {
-//             counter: state.counter + (action.by ? action.by : 1)
-//         };
-//     }
-//     else if (action.type === 'decrement') {
-//         return {
-//             counter: state.counter - (action.by ? action.by : 1)
-//         };
-//     }
+const initialAuthState = {
+  isAuthenticated: false,
+};
 
-//     return state;
-// };
+const authSlice = createSlice({
+  name: 'authentication',
+  initialState: initialAuthState,
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
+});
 
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 //Instead of using the createStore() toolkit provides another alternative configureStore()
 //const store = createStore(counterSlice.reducer);
@@ -54,8 +55,10 @@ export const counterActions = counterSlice.actions;
 //Note that it is a reducer, not reducers property.
 //If there were multiple slices, we could pass in an object. eg. reducer: {counter: counterSlice.reducer, anotherCounter: anotherCounterSlice.reducer }
 const store = configureStore({
-  reducer: counterSlice.reducer,
+  reducer: {
+    counter: counterSlice.reducer,
+    auth: authSlice.reducer,
+  },
 });
 
 export default store;
-

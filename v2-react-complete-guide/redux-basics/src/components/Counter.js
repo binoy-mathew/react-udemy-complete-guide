@@ -6,7 +6,7 @@ import { Component } from 'react';
 const Counter = () => {
   const toggleCounterHandler = () => {};
   const dispatch = useDispatch();
-  const counter = useSelector(state => state.counter);
+  const counter = useSelector(state => state.counter.counter);
 
   /*
   const incrementHandler = () => {
@@ -27,7 +27,7 @@ const Counter = () => {
   };
   
   const decrementHandler = () => {
-    dispatch(counterActions.decrement(2));
+    dispatch(counterActions.decrement(1));
   };
 
   return (
