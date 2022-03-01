@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import classes from './NewTodo.module.css';
 
 const NewTodo: React.FC<{onAddTodo: (todoText: string) => void}> = (props) => {
 
@@ -12,12 +13,12 @@ const NewTodo: React.FC<{onAddTodo: (todoText: string) => void}> = (props) => {
         if (!enteredText || !enteredText.trim().length) {
             return;
         }
-        
+
         props.onAddTodo(enteredText);
     }
 
     return (
-        <form onSubmit={submitHandler}>
+        <form onSubmit={submitHandler} className={classes.form}>
             <label htmlFor="text">Todo text</label>
             <input type="text" id="text" ref={todoTextInputRef}/>
             <button>Add</button>
